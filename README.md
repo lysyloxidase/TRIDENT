@@ -97,3 +97,15 @@ The design stack takes a ranked target into candidate molecules:
 - `ValidatorAgent`: validates top molecules with Boltz-ABFE2-style free energy, DiffDock-style pose consensus, ADMET-AI-style endpoint filters, and AiZynthFinder-style synthesis plans.
 
 The default implementation is an offline fixture pipeline so CI can verify the full target-to-hit flow on CPU. The wrapper classes in `src/trident/models/` are the integration seams for real Boltz-2, SynFlowNet, REINVENT 4, Boltz-ABFE2, ADMET-AI, DiffDock, and retrosynthesis tooling.
+
+## Phase 5 Perturbation Engine
+
+`PerturbationAgent` answers the core query: given a drug SMILES, patient single-cell file, target cell type, and target gene, predict per-gene log2 fold-change. It ensembles:
+
+- `CPAWrapper`: drug + dose + cell-type perturbation profile.
+- `ScGPTWrapper`: patient cell-state embedding only, never direct causal prediction.
+- `GeneformerWrapper`: downstream target-gene cascade estimate.
+- `GEARSWrapper`: CRISPR-like target knockout approximation.
+- `CellOracleWrapper`: GRN simulation tie-breaker.
+
+The result reports the full per-gene mean, per-gene model variance, high-disagreement genes, model contributions, and causal grounding. Covered LINCS/Sci-Plex-like pairs are labeled `interventional`; extrapolated pairs include a do-calculus warning. The agent refuses predictions for structurally novel drugs, underrepresented cell types, or complete model disagreement.
