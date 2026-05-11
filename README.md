@@ -65,3 +65,15 @@ The tests cover:
 - PrimeKG can materialize the 17,080 disease reference catalog.
 - UniProt IDs merge gene nodes across sources.
 - Declared merged source scale exceeds 100K nodes and 5M edges.
+
+## Phase 2 Agents
+
+TRIDENT now includes five typed agents:
+
+- `LitAgent`: PaperQA2-style search, evidence chunking, reranking, synthesis, and PMID verification.
+- `SynthesisAgent`: deep-review synthesis with a Bradley-Terry-Luce pairwise tournament.
+- `PatentAgent`: therapeutic claim extraction with mandatory `legal_review_required=True`.
+- `TrialAgent`: clinical-trial signal mining and pre-2020 baricitinib/COVID repurposing fixture.
+- `ContradictionAgent`: contradiction-cluster detection with Likert 0-5 scoring.
+
+Every agent consumes a Pydantic query model and returns a Pydantic result model with `source_urls`, `retrieval_timestamp`, `confidence_band`, `agent_name`, and `tool_calls`. The code is wired for LiteLLM (`TRIDENT_LIVE_LLM=1`) with Claude Sonnet as primary and Llama 3.3 70B fallback, and uses LangGraph `ToolNode` when installed. Offline fixtures remain the default for reproducible tests.
