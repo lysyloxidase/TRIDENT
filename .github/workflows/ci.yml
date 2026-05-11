@@ -12,10 +12,17 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
       - name: Install package
         run: |
           python -m pip install --upgrade pip
           python -m pip install -e ".[dev]"
+      - name: Install UI
+        run: |
+          cd src/ui
+          npm install --package-lock=false
       - name: Validate compose
         run: docker compose config
       - name: Start Neo4j
@@ -30,6 +37,18 @@ jobs:
           docker compose logs neo4j
           exit 1
       - name: Run tests
-        run: pytest
+        run: pytest --cov=trident --cov-report=term-missing --cov-fail-under=70
       - name: Lint
         run: ruff check .
+      - name: Pyright strict
+        run: pyright -p pyrightconfig.json
+      - name: Evaluation benchmarks
+        run: |
+          python -m evals.litqa2
+          python -m evals.lbd_replication
+          python -m evals.boltz_tyk2
+          python -m evals.perturbseq_bench
+      - name: UI build
+        run: |
+          cd src/ui
+          npm run build

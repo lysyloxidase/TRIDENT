@@ -1,0 +1,6 @@
+{
+  "typeCheckingMode": "strict",
+  "pythonVersion": "3.11",
+  "include": ["src/trident/caveats.py"],
+  "reportMissingTypeStubs": false
+}

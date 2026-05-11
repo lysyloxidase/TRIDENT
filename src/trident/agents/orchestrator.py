@@ -21,6 +21,7 @@ from trident.agents.structure_agent import StructureAgent, StructureQuery
 from trident.agents.synthesis_agent import DeepSynthesisQuery, SynthesisAgent
 from trident.agents.trial_agent import TrialAgent, TrialQuery
 from trident.agents.validator_agent import ValidationQuery, ValidatorAgent
+from trident.caveats import MANDATORY_CAVEATS
 from trident.scoring.bayesian_fusion import RankedTarget, TargetRanker, TargetRankingQuery
 
 
@@ -129,6 +130,7 @@ class ReportWriter:
             caveats = [
                 "- Offline fixture run; enable live database/model integrations for production."
             ]
+        caveats.extend(f"- {caveat}" for caveat in MANDATORY_CAVEATS)
         references = "\n".join(
             f"{index}. [{ref['label']}]({ref['url']})"
             for index, ref in enumerate(citations, start=1)

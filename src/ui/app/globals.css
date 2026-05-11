@@ -1,0 +1,496 @@
+:root {
+  --bg: #f7f8fb;
+  --panel: #ffffff;
+  --ink: #172033;
+  --muted: #667085;
+  --line: #d8dee9;
+  --blue: #1769aa;
+  --green: #16875d;
+  --purple: #6b3fb5;
+  --orange: #b75d18;
+  --red: #b42318;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 248px minmax(0, 1fr);
+}
+
+.sidebar {
+  background: #111827;
+  color: white;
+  padding: 22px 18px;
+}
+
+.brand {
+  font-weight: 750;
+  letter-spacing: 0;
+  margin-bottom: 24px;
+}
+
+.nav {
+  display: grid;
+  gap: 8px;
+}
+
+.nav a {
+  color: #dbe4f0;
+  padding: 9px 10px;
+  border-radius: 6px;
+}
+
+.nav a:hover {
+  background: #223047;
+}
+
+.main {
+  padding: 28px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 26px;
+  line-height: 1.2;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.band {
+  border-top: 1px solid var(--line);
+  padding: 18px 0;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.grid.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid.three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 10px 12px;
+  background: white;
+}
+
+.button {
+  border: 0;
+  border-radius: 6px;
+  background: var(--blue);
+  color: white;
+  padding: 10px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.button.secondary {
+  background: #e9eef7;
+  color: var(--ink);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border: 1px solid var(--line);
+}
+
+.table th,
+.table td {
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.badge.tdark {
+  background: var(--purple);
+}
+
+.badge.tbio {
+  background: var(--blue);
+}
+
+.badge.tchem {
+  background: var(--green);
+}
+
+.badge.tclin {
+  background: #667085;
+}
+
+.badge.warn {
+  background: var(--orange);
+}
+
+.badge.bad {
+  background: var(--red);
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-right: 8px;
+  background: var(--muted);
+}
+
+.status-dot.running {
+  background: var(--orange);
+}
+
+.status-dot.complete {
+  background: var(--green);
+}
+
+.status-dot.failed {
+  background: var(--red);
+}
+
+.caveats {
+  border-left: 4px solid var(--orange);
+  background: #fff7ed;
+  padding: 14px 16px;
+  border-radius: 4px;
+}
+
+.caveats li {
+  margin: 6px 0;
+}
+
+.react-flow-shell,
+.viewer,
+.plot {
+  height: 460px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+}
+
+.agent-node {
+  display: grid;
+  gap: 4px;
+  min-width: 138px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: white;
+  font-size: 12px;
+}
+
+.agent-node span {
+  color: var(--muted);
+}
+
+.agent-node.running {
+  border-color: var(--orange);
+}
+
+.agent-node.complete {
+  border-color: var(--green);
+}
+
+.agent-node.failed {
+  border-color: var(--red);
+}
+
+.molecule-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.molecule-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  min-height: 142px;
+}
+
+.smiles {
+  word-break: break-word;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+}
+
+.action-stack {
+  display: grid;
+  gap: 6px;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0 0;
+}
+
+.metrics div {
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+}
+
+.metrics dt {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.metrics dd {
+  margin: 2px 0 0;
+  font-weight: 700;
+}
+
+.mol-sketch {
+  height: 76px;
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  background: #f9fbfd;
+}
+
+.mol-sketch span {
+  position: absolute;
+  width: 58px;
+  height: 2px;
+  background: var(--ink);
+  top: 36px;
+  left: 74px;
+  transform-origin: left center;
+}
+
+.mol-sketch span:nth-child(1) {
+  transform: rotate(0deg);
+}
+
+.mol-sketch span:nth-child(2) {
+  transform: rotate(58deg);
+}
+
+.mol-sketch span:nth-child(3) {
+  transform: rotate(-58deg);
+}
+
+.protein-scene {
+  position: relative;
+  height: 100%;
+  background: #f7fafc;
+}
+
+.helix,
+.ligand-stick {
+  position: absolute;
+  border-radius: 999px;
+}
+
+.helix {
+  width: 190px;
+  height: 28px;
+  background: var(--blue);
+  opacity: 0.75;
+}
+
+.helix.h1 {
+  left: 20%;
+  top: 24%;
+  transform: rotate(24deg);
+}
+
+.helix.h2 {
+  left: 45%;
+  top: 42%;
+  transform: rotate(-32deg);
+  background: var(--green);
+}
+
+.helix.h3 {
+  left: 26%;
+  top: 62%;
+  transform: rotate(12deg);
+  background: var(--purple);
+}
+
+.pocket-highlight {
+  position: absolute;
+  left: 44%;
+  top: 38%;
+  width: 98px;
+  height: 98px;
+  border: 3px solid var(--orange);
+  border-radius: 50%;
+  background: rgba(183, 93, 24, 0.12);
+}
+
+.ligand-stick {
+  width: 86px;
+  height: 8px;
+  background: var(--red);
+  left: 47%;
+  top: 49%;
+}
+
+.ligand-stick.l1 {
+  transform: rotate(38deg);
+}
+
+.ligand-stick.l2 {
+  transform: rotate(-38deg);
+}
+
+.viewer-label {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 6px 8px;
+}
+
+.axis {
+  stroke: #667085;
+  stroke-width: 1.5;
+}
+
+.axis.faint {
+  stroke-dasharray: 5 5;
+  opacity: 0.45;
+}
+
+.dot {
+  fill: var(--blue);
+  stroke: white;
+  stroke-width: 2;
+}
+
+.dot.warn {
+  fill: var(--orange);
+}
+
+.plot-label {
+  fill: var(--muted);
+  font-size: 13px;
+}
+
+.plot-label.vertical {
+  transform: rotate(-90deg);
+  transform-origin: 18px 210px;
+}
+
+.heatmap td,
+.heatmap th {
+  text-align: center;
+}
+
+.umap {
+  height: 360px;
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+}
+
+.umap span {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--blue);
+}
+
+.report {
+  max-width: 980px;
+}
+
+@media (max-width: 900px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+  }
+
+  .grid.two,
+  .grid.three {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

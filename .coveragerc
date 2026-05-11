@@ -1,0 +1,9 @@
+[run]
+source = src/trident
+omit =
+    src/trident/api/*
+    src/trident/worker.py
+
+[report]
+show_missing = true
+skip_empty = true

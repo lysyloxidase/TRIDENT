@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from trident.agents.generator_agent import GenerationQuery, GeneratorAgent
-from trident.agents.lit_agent import LitAgent, LitQuery
+from trident.agents.lit_agent import LitAgent
 from trident.agents.orchestrator import (
     ReportWriter,
     TridentOrchestrator,
@@ -139,28 +139,21 @@ def run_design(target: str, n_molecules: int) -> dict[str, Any]:
 
 def run_eval(suite: str) -> dict[str, Any]:
     if suite == "perturbseq":
-        return PerturbationAgent().evaluate_heldout_perturbseq().model_dump()
-    if suite == "boltz-tyk2":
-        return {
-            "tyk2_rmsd_lt_2a": StructureAgent().predicts_within_rmsd("TYK2"),
-            "known_inhibitor_ranking": ValidatorAgent().rank_known_tyk2_inhibitors(),
-        }
-    if suite == "lbd-replication":
-        from trident.agents.lbd_agent import LBDAgent, LBDQuery
+        from evals.perturbseq_bench import run_benchmark
 
-        return LBDAgent().run(LBDQuery(disease_id="Raynaud disease", cutoff_year=1986)).model_dump()
+        return run_benchmark().__dict__
+    if suite == "boltz-tyk2":
+        from evals.boltz_tyk2 import run_benchmark
+
+        return run_benchmark().__dict__
+    if suite == "lbd-replication":
+        from evals.lbd_replication import run_benchmark
+
+        return run_benchmark().__dict__
     if suite == "litqa2":
-        return (
-            LitAgent()
-            .run(
-                LitQuery(
-                    question="EGFR inhibitors lung cancer",
-                    n_papers=50,
-                    min_chunks=10,
-                )
-            )
-            .model_dump()
-        )
+        from evals.litqa2 import run_benchmark
+
+        return run_benchmark().__dict__
     raise ValueError(f"Unknown eval suite: {suite}")
 
 

@@ -6,6 +6,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 WORKDIR /app
 COPY pyproject.toml README.md ./
 COPY src ./src
+COPY evals ./evals
 RUN python -m pip install --upgrade pip && python -m pip install .
 
-CMD ["python", "-m", "trident.kg.build_graph", "--limit", "10"]
+CMD ["uvicorn", "trident.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
