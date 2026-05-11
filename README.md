@@ -77,3 +77,13 @@ TRIDENT now includes five typed agents:
 - `ContradictionAgent`: contradiction-cluster detection with Likert 0-5 scoring.
 
 Every agent consumes a Pydantic query model and returns a Pydantic result model with `source_urls`, `retrieval_timestamp`, `confidence_band`, `agent_name`, and `tool_calls`. The code is wired for LiteLLM (`TRIDENT_LIVE_LLM=1`) with Claude Sonnet as primary and Llama 3.3 70B fallback, and uses LangGraph `ToolNode` when installed. Offline fixtures remain the default for reproducible tests.
+
+## Phase 3 Hypothesis Engine
+
+The core discovery layer combines:
+
+- `MRAgent`: pure-Python two-sample MR with IVW, MR-Egger, weighted median, sensitivity metrics, coloc H4, and causal posterior output.
+- `LBDAgent`: Swanson A-B-C closure over SemMedDB-style predications with holdout validation.
+- `NoveltyScorer`: Uzzi atypicality, LLM Swiss-tournament prior, Pharos TDL bonus, and pipeline-gap bonus.
+- `ConfidenceScorer`: Bayesian likelihood-ratio fusion across MR, LBD, GWAS PIP, GTEx specificity, DepMap, KG paths, patent white-space, trial gaps, and contradiction penalties.
+- `TargetRanker`: ranks by `Novelty x Confidence` into priority/speculative/validated/ignore quadrants and returns full `TargetCandidate` objects.
