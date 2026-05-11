@@ -87,3 +87,13 @@ The core discovery layer combines:
 - `NoveltyScorer`: Uzzi atypicality, LLM Swiss-tournament prior, Pharos TDL bonus, and pipeline-gap bonus.
 - `ConfidenceScorer`: Bayesian likelihood-ratio fusion across MR, LBD, GWAS PIP, GTEx specificity, DepMap, KG paths, patent white-space, trial gaps, and contradiction penalties.
 - `TargetRanker`: ranks by `Novelty x Confidence` into priority/speculative/validated/ignore quadrants and returns full `TargetCandidate` objects.
+
+## Phase 4 Design Pipeline
+
+The design stack takes a ranked target into candidate molecules:
+
+- `StructureAgent`: fetches target sequence, predicts a Boltz-2-style structure, cross-validates when requested, and reports top fpocket/DoGSite-style pockets.
+- `GeneratorAgent`: runs deterministic SynFlowNet and REINVENT 4 adapters, deduplicates generated molecules, estimates QED/SA/Boltz-2 affinity, and returns ranked valid SMILES.
+- `ValidatorAgent`: validates top molecules with Boltz-ABFE2-style free energy, DiffDock-style pose consensus, ADMET-AI-style endpoint filters, and AiZynthFinder-style synthesis plans.
+
+The default implementation is an offline fixture pipeline so CI can verify the full target-to-hit flow on CPU. The wrapper classes in `src/trident/models/` are the integration seams for real Boltz-2, SynFlowNet, REINVENT 4, Boltz-ABFE2, ADMET-AI, DiffDock, and retrosynthesis tooling.
