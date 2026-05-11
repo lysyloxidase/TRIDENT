@@ -32,6 +32,7 @@ dev = [
 ]
 
 [project.scripts]
+trident = "trident.cli:main"
 trident-build-kg = "trident.kg.build_graph:main"
 
 [tool.hatch.build.targets.wheel]

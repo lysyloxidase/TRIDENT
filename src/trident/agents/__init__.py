@@ -12,6 +12,7 @@ from trident.agents.generator_agent import GeneratorAgent
 from trident.agents.lbd_agent import LBDAgent
 from trident.agents.lit_agent import LitAgent
 from trident.agents.mr_agent import MRAgent
+from trident.agents.orchestrator import ReportWriter, TridentOrchestrator, TridentState
 from trident.agents.patent_agent import PatentAgent
 from trident.agents.perturbation_agent import PerturbationAgent
 from trident.agents.structure_agent import StructureAgent
@@ -32,8 +33,11 @@ __all__ = [
     "PatentAgent",
     "PerturbationAgent",
     "ProvenanceResult",
+    "ReportWriter",
     "SynthesisAgent",
     "StructureAgent",
+    "TridentOrchestrator",
+    "TridentState",
     "TrialAgent",
     "ValidatorAgent",
 ]

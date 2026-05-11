@@ -24,5 +24,17 @@ class Boltz2Wrapper:
             "plddt": 72.0,
             "lddt_pli": 0.55,
             "source_urls": [],
-            "pockets": [],
+            "pockets": [
+                {
+                    "pocket_id": f"{key}_POCKET_1",
+                    "rank": 1,
+                    "center": [0.0, 0.0, 0.0],
+                    "volume": 420.0,
+                    "hydrophobicity": 0.55,
+                    "enclosure": 0.58,
+                    "druggability_score": 0.67,
+                    "residues": ["L1", "V2", "F3"],
+                    "annotation": "predicted ligand-binding pocket",
+                }
+            ],
         }

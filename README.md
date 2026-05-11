@@ -109,3 +109,25 @@ The default implementation is an offline fixture pipeline so CI can verify the f
 - `CellOracleWrapper`: GRN simulation tie-breaker.
 
 The result reports the full per-gene mean, per-gene model variance, high-disagreement genes, model contributions, and causal grounding. Covered LINCS/Sci-Plex-like pairs are labeled `interventional`; extrapolated pairs include a do-calculus warning. The agent refuses predictions for structurally novel drugs, underrepresented cell types, or complete model disagreement.
+
+## Phase 6 Orchestrator And CLI
+
+`TridentOrchestrator` connects the layers into a closed-loop state machine:
+
+1. Disease intake and KG slice extraction.
+2. Parallel literature, synthesis, patent, and trial mining.
+3. Parallel MR, LBD, and contradiction analysis.
+4. Novelty/confidence ranking with `TargetRanker`.
+5. Optional structure prediction, molecule generation, validation, and perturbation prediction.
+6. Markdown report generation with provenance and verified references.
+
+The installed CLI entrypoint is `trident`:
+
+```bash
+trident run --disease "idiopathic pulmonary fibrosis" --n-targets 5 --design
+trident discover --disease "dry AMD" --n-targets 10
+trident design --target TNIK --uniprot Q9UKE5 --n-molecules 50
+trident perturb --drug "CC(C)N1C(=O)C=CC2=C1C=CC(NC(=O)C3=CC=CC=C3F)=C2C" --h5ad lung_adenocarcinoma_h5ad --cell-type tumor_epithelial --target-gene KRAS
+trident search --query "ROCK inhibitors RPE phagocytosis" --n-papers 50
+trident eval --suite perturbseq
+```
