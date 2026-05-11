@@ -12,3 +12,5 @@ build/
 data/raw/
 data/cache/
 neo4j/
+node_modules/
+.next/
